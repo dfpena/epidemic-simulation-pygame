@@ -2,7 +2,7 @@
 
 # Pygame Epidemic Simulator <br>
 
-Simulation of infection progression given a reasonably natural network of connected individuals.  [StremeCoder]([http://do.pluricorp.com/page/stremecoder](http://do.pluricorp.com/page/stremecoder) (Which is currently on sale for Developers for $10.00 using code: 4ix90v2) is used to maintain this code and generate different infection parameters, but is not required and the python source can be modified directly in the simloop function to simulate different disesases.
+Simulation of infection progression given a reasonably natural network of connected individuals.  [StremeCoder]([http://do.pluricorp.com/page/stremecoder](http://do.pluricorp.com/page/stremecoder) (Which is currently on sale for Developers for $10.00 using code: 4ix90v2) is used to maintain this code and generate different infection parameters, but is not required and the python source can be modified directly in the simloop function to simulate different diseases.
 
 This simulation uses a social network generated in networkx
 
@@ -21,8 +21,6 @@ To reduce runtime and reproduce the same population for each disease node a pick
 The simulation takes in 
 
 R0, infection probability, mortality rate, infection length, or infection probability if R0 is set to 0. Otherwise, infection probability is estimated from R0 algebraically. Each cycle of the simulation for each infected node connection infection and mortality are simulated by random number selection against provided probabilities.  The simulation is set to end at 365 days. To use this simulation in a montecarlo remove the pygame dependencies to eliminate the visualizations and perform your desired statistical calculation on the resulting network then repeat the process n times. 
-
-
 
 ## Demo
 
@@ -52,8 +50,6 @@ To map the node network into the screen resolution space.   Refer to [SCIPY](htt
 conda install numpy
 ```
 
-
-
 ### NetworkX<br>
 
 Generates the social network of nodes to run in the simulation
@@ -75,11 +71,3 @@ python episim.py
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
-
-
-
-
-
-
-
-
