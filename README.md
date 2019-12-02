@@ -2,7 +2,7 @@
 
 # Pygame Epidemic Simulator <br>
 
-Simulation of infection progression given a reasonably natural network of connected individuals.  [StremeCoder]([http://do.pluricorp.com/page/stremecoder](http://do.pluricorp.com/page/stremecoder) (Which is currently on sale for Developers for $10.00 using code: 4ix90v2) is used to maintain this code and generate different infection parameters, but is not required and the python source can be modified directly in the simloop function to simulate different diseases.
+Simulation of infection progression given a reasonably natural network of connected individuals.  [StremeCoder]([http://do.pluricorp.com/page/stremecoder](http://do.pluricorp.com/page/stremecoder) is used to maintain this code and generate different infection parameters, but is not required and the python source can be modified directly in the simloop function to simulate different diseases.
 
 This simulation uses a social network generated in networkx
 
