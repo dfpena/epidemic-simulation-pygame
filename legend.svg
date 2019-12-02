@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="119.40419mm"
+   height="138.30301mm"
+   viewBox="0 0 119.40419 138.30301"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   sodipodi:docname="legend.svg"
+   inkscape:export-filename="/Users/user/Documents/ebola/nodegraph/legend.png"
+   inkscape:export-xdpi="39.991898"
+   inkscape:export-ydpi="39.991898">
+  <defs
+     id="defs2">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter1028"
+       x="-0.33132631"
+       width="1.6626526"
+       y="-0.26230001"
+       height="1.5246">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="9.9143155"
+         id="feGaussianBlur1030" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="323.0196"
+     inkscape:cy="190.91923"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1440"
+     inkscape:window-height="801"
+     inkscape:window-x="60"
+     inkscape:window-y="34"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-0.39612118,-38.104449)">
+    <rect
+       style="fill:#000000;stroke:none;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:6.34999992, 0.79374999000000002;stroke-dashoffset:0;filter:url(#filter1028);opacity:0.662"
+       id="rect815"
+       width="71.815475"
+       height="90.714287"
+       x="24.190477"
+       y="61.898808"
+       ry="6.8035712"
+       rx="6.0476189"
+       inkscape:export-xdpi="39.991898"
+       inkscape:export-ydpi="39.991898" />
+    <rect
+       style="fill:#ffffff;stroke:none;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:6.34999999, 0.79374999999999984;stroke-dashoffset:0;opacity:0.662"
+       id="rect815-7"
+       width="71.815475"
+       height="90.714287"
+       x="24.190477"
+       y="61.898819"
+       ry="6.8035712"
+       rx="6.0476189"
+       inkscape:export-xdpi="39.991898"
+       inkscape:export-ydpi="39.991898" />
+    <g
+       id="g1131"
+       transform="translate(2.6486707,2.0618782)"
+       style="opacity:0.662">
+      <circle
+         inkscape:export-ydpi="39.991898"
+         inkscape:export-xdpi="39.991898"
+         r="4.971518"
+         cy="81.233429"
+         cx="40.056763"
+         id="path1032"
+         style="fill:#6002ee;fill-opacity:1;stroke:none;stroke-width:0.40154567;stroke-miterlimit:4;stroke-dasharray:3.2123654, 0.40154567000000002;stroke-dashoffset:0" />
+      <circle
+         inkscape:export-ydpi="39.991898"
+         inkscape:export-xdpi="39.991898"
+         r="4.971518"
+         cy="97.207184"
+         cx="39.76202"
+         id="path1032-9"
+         style="fill:#91ee07;fill-opacity:1;stroke:none;stroke-width:0.40154567;stroke-miterlimit:4;stroke-dasharray:3.21236544, 0.40154568000000002;stroke-dashoffset:0" />
+      <circle
+         inkscape:export-ydpi="39.991898"
+         inkscape:export-xdpi="39.991898"
+         r="4.971518"
+         cy="113.18098"
+         cx="39.243607"
+         id="path1032-3"
+         style="fill:#ffeb3b;fill-opacity:1;stroke:none;stroke-width:0.40154567;stroke-miterlimit:4;stroke-dasharray:3.21236544, 0.40154568000000002;stroke-dashoffset:0" />
+      <text
+         inkscape:export-ydpi="39.991898"
+         inkscape:export-xdpi="39.991898"
+         id="text1057"
+         y="83.741455"
+         x="52.203289"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.26458332"
+           y="83.741455"
+           x="52.203289"
+           id="tspan1055"
+           sodipodi:role="line">Naive</tspan></text>
+      <text
+         inkscape:export-ydpi="39.991898"
+         inkscape:export-xdpi="39.991898"
+         id="text1061"
+         y="99.854736"
+         x="52.155056"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.26458332"
+           y="99.854736"
+           x="52.155056"
+           id="tspan1059"
+           sodipodi:role="line">Infected</tspan></text>
+      <text
+         inkscape:export-ydpi="39.991898"
+         inkscape:export-xdpi="39.991898"
+         id="text1065"
+         y="115.70279"
+         x="52.093044"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-size:7.05555534px;stroke-width:0.26458332"
+           y="115.70279"
+           x="52.093044"
+           id="tspan1063"
+           sodipodi:role="line">Immune</tspan></text>
+      <circle
+         inkscape:export-ydpi="39.991898"
+         inkscape:export-xdpi="39.991898"
+         r="4.971518"
+         cy="129.15474"
+         cx="39.021351"
+         id="path1032-3-8"
+         style="fill:#ef6307;fill-opacity:1;stroke:none;stroke-width:0.40154567;stroke-miterlimit:4;stroke-dasharray:3.21236547, 0.40154568000000002;stroke-dashoffset:0" />
+      <text
+         inkscape:export-ydpi="39.991898"
+         inkscape:export-xdpi="39.991898"
+         id="text1065-0"
+         y="131.78506"
+         x="52.093044"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-size:7.05555534px;stroke-width:0.26458332"
+           y="131.78506"
+           x="52.093044"
+           id="tspan1063-2"
+           sodipodi:role="line">Dead</tspan></text>
+    </g>
+  </g>
+</svg>
