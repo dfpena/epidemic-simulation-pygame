@@ -2,11 +2,11 @@
 #!/usr/bin/env python
 from decorator import decorator
 
+import random
 import numpy as np
+import pygame.gfxdraw as gfx
 import pickle
 import pygame as pg
-import random
-import pygame.gfxdraw as gfx
 
 
 @decorator
@@ -53,13 +53,6 @@ def start():
     return {'Start':True,'Settings':{'Verbose':True},'Status':{},'Threads':[]}
 
  
-@on_start
-def loadPickle1(*args,**kwargs):
-    kwargs = pickle.load(open("nodegraph.pkl","rb"))
-    kwargs['Threads'] = []
-
-    return kwargs
- 
 def remap(narray,resolution):
     x = np.interp(narray[0],[-1,1],[15,resolution[0]-15])
     y = np.interp(narray[1],[-1,1],[50,resolution[1]- 15])
@@ -67,17 +60,19 @@ def remap(narray,resolution):
 
 
 @on_start
-def simLoop2(*args, **kwargs):
+def simLoop1(*args, **kwargs):
 ############################## EDIT THESE PARAMETERS ########################
-    inflength = 16
-    mortality = 0.8
+    inflength = 8
+    mortality = 0.0015
     rnaught = 2
     infprob = 0
 #############################################################################
+
     if infprob == 0:
         infprob = rnaught/(kwargs['Settings']['NetworkX']['k']*inflength)
     if rnaught == 0:
         rnaught = infprob*kwargs['Settings']['NetworkX']['k']*inflength
+    
     pos = kwargs['Settings']['NetworkX']['Pos']
     G = kwargs['Data']
     screensize = (800,800)
@@ -85,18 +80,18 @@ def simLoop2(*args, **kwargs):
     G.graph['disease'] = {"Infection Probability" : infprob, "Infection Length" : inflength, "Mortality": mortality}
     # Add Parameters to Nodegraph
     for nid in G:
-        G.node[nid]['Status'] = 'Naive'
-        G.node[nid]['Day'] = 0
+        G.nodes[nid]['Status'] = 'Naive'
+        G.nodes[nid]['Day'] = 0
     # Remap -1 1 square to  pygame resolution
     for nid in pos:
         pos[nid] = remap(pos[nid],screensize) 
-    G.node[0]['Status'] = 'Infected'
+    G.nodes[0]['Status'] = 'Infected'
     # initialize the pygame module
     pg.init()
     # load and set the logo
     #logo = pg.image.load("logo.png")
     #pg.display.set_icon(logo)
-    pg.display.set_caption("Ebola")
+    pg.display.set_caption("Normal Flu")
     legend = pg.image.load('legend.png')
      
     # create a surface on screen that has the size of 240 x 180
@@ -132,26 +127,26 @@ def simLoop2(*args, **kwargs):
                 cnode= e[1]
                 gfx.line(screen,pos[nid][0],pos[nid][1],pos[cnode][0],pos[cnode][1],(120,144,156))
         for nid in pos:
-            color = G.graph['colors'][G.node[nid]['Status']]
+            color = G.graph['colors'][G.nodes[nid]['Status']]
             gfx.aacircle(screen, pos[nid][0],pos[nid][1], 6, color)
             gfx.filled_circle(screen, pos[nid][0],pos[nid][1], 6, color)
-            if G.node[nid]['Status'] == "Infected":
+            if G.nodes[nid]['Status'] == "Infected":
                 infected = infected+1
-                if G.node[nid]['Day'] == G.graph['disease']["Infection Length"]:
+                if G.nodes[nid]['Day'] == G.graph['disease']["Infection Length"]:
                     roll = random.random()
                     if roll >= G.graph['disease']['Mortality']:
-                        G.node[nid]['Status'] = "Immune"
+                        G.nodes[nid]['Status'] = "Immune"
                     if roll < G.graph['disease']['Mortality']:
-                        G.node[nid]['Status'] = "Dead"
+                        G.nodes[nid]['Status'] = "Dead"
                         deaths=deaths+1
-                G.node[nid]['Day'] = G.node[nid]['Day'] + 1
+                G.nodes[nid]['Day'] = G.nodes[nid]['Day'] + 1
                 for e in G.edges(nid):
                     cnode = e[1]
-                    if G.node[cnode]['Status'] != "Dead": 
-                        if G.node[cnode]['Status'] != "Immune":
+                    if G.nodes[cnode]['Status'] != "Dead": 
+                        if G.nodes[cnode]['Status'] != "Immune":
                             roll = random.random()
                             if roll < G.graph['disease']['Infection Probability']:
-                                G.node[cnode]['Status'] = 'Infected'
+                                G.nodes[cnode]['Status'] = 'Infected'
                 
     # event handling, gets all event from the event queue
         for event in pg.event.get():
@@ -165,6 +160,13 @@ def simLoop2(*args, **kwargs):
     return kwargs
  
  
+@on_start
+def loadPickle2(*args,**kwargs):
+    kwargs = pickle.load(open("nodegraph.pkl","rb"))
+    kwargs['Threads'] = []
+
+    return kwargs
+ 
 
 
 class StremeNode:
@@ -172,14 +174,14 @@ class StremeNode:
         pass
 
     def run(self,*args,**kwargs):
-        self.kwargs=simLoop2(**loadPickle1(**kwargs))
+        self.kwargs=simLoop1(**loadPickle2(**kwargs))
         return (self.kwargs)
 
 class liveprocess:
     def __init__(self):
         self.status="pending"
     def run(self,expname):
-        self.response=simLoop2(**loadPickle1(**start()))
+        self.response=simLoop1(**loadPickle2(**start()))
         self.status="completed"
         return(self.status)
 
