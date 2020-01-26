@@ -2,14 +2,14 @@
 #!/usr/bin/env python
 from decorator import decorator
 
-import pygame as pg
-import time
-import pandas as pd
-import seaborn as sns
+import random
 import numpy as np
 import matplotlib.pyplot as plt
+import time
+import pygame as pg
+import pandas as pd
+import seaborn as sns
 import pygame.gfxdraw as gfx
-import random
 import pickle
 
 
@@ -93,12 +93,12 @@ def simLoop_node_25(*args, **kwargs):
     G.graph['disease'] = {"Infection Probability" : infprob,"Infection Detection":infdetected, "Infection Length" : inflength, "Incubation Length":infincubation, "Mortality": mortality}
     # Add Parameters to Nodegraph
     for nid in G:
-        G.node[nid]['Status'] = 'Naive'
-        G.node[nid]['Day'] = 0
+        G.nodes[nid]['Status'] = 'Naive'
+        G.nodes[nid]['Day'] = 0
     # Remap -1 1 square to  pygame resolution
     for nid in pos:
         pos[nid] = remap(pos[nid],screensize) 
-    G.node[0]['Status'] = 'Infected Symptomatic'
+    G.nodes[0]['Status'] = 'Infected Symptomatic'
     # initialize the pygame module
     pg.init()
     # load and set the logo
@@ -172,44 +172,44 @@ def simLoop_node_25(*args, **kwargs):
                 cnode= e[1]
                 gfx.line(screen,pos[nid][0],pos[nid][1],pos[cnode][0],pos[cnode][1],(120,144,156))
         for nid in pos:
-            color = G.graph['colors'][G.node[nid]['Status']]
+            color = G.graph['colors'][G.nodes[nid]['Status']]
             gfx.aacircle(screen, pos[nid][0],pos[nid][1], 6, color)
             gfx.filled_circle(screen, pos[nid][0],pos[nid][1], 6, color)
             
-            if G.node[nid]['Day'] == G.graph['disease']['Infection Detection']:
+            if G.nodes[nid]['Day'] == G.graph['disease']['Infection Detection']:
                 detected = detected + 1    
-            if G.node[nid]['Status'] == "Infected Symptomatic":
-                if G.node[nid]['Day'] == G.graph['disease']["Infection Length"]:
+            if G.nodes[nid]['Status'] == "Infected Symptomatic":
+                if G.nodes[nid]['Day'] == G.graph['disease']["Infection Length"]:
                     roll = random.random()
                     if roll >= G.graph['disease']['Mortality']:
-                        G.node[nid]['Status'] = "Immune"
+                        G.nodes[nid]['Status'] = "Immune"
                         immune = immune+1
                         symptomatic = symptomatic-1
                     if roll < G.graph['disease']['Mortality']:
-                        G.node[nid]['Status'] = "Dead"
+                        G.nodes[nid]['Status'] = "Dead"
                         symptomatic = symptomatic-1
                         deaths=deaths+1
-                G.node[nid]['Day'] = G.node[nid]['Day'] + 1
+                G.nodes[nid]['Day'] = G.nodes[nid]['Day'] + 1
                 for e in G.edges(nid):
                     cnode = e[1]
-                    if G.node[cnode]['Status'] != "Dead": 
-                        if G.node[cnode]['Status'] != "Immune":
-                            if G.node[cnode]['Status'] != "Infected Asymptomatic":
-                                if G.node[cnode]['Status'] != "Infected Symptomatic":
+                    if G.nodes[cnode]['Status'] != "Dead": 
+                        if G.nodes[cnode]['Status'] != "Immune":
+                            if G.nodes[cnode]['Status'] != "Infected Asymptomatic":
+                                if G.nodes[cnode]['Status'] != "Infected Symptomatic":
                                     roll = random.random()
                                     
                                     if roll < G.graph['disease']['Infection Probability']:
-                                        G.node[cnode]['Status'] = 'Infected Asymptomatic'
+                                        G.nodes[cnode]['Status'] = 'Infected Asymptomatic'
                                         infected = infected+1
                                         asymptomatic = asymptomatic+1
                                 
                                 
-            if G.node[nid]['Status'] == "Infected Asymptomatic":
-                if G.node[nid]['Day'] >= G.graph['disease']["Incubation Length"]:
+            if G.nodes[nid]['Status'] == "Infected Asymptomatic":
+                if G.nodes[nid]['Day'] >= G.graph['disease']["Incubation Length"]:
                     asymptomatic = asymptomatic-1
                     symptomatic = symptomatic+1
-                    G.node[nid]['Status'] = "Infected Symptomatic"
-                G.node[nid]['Day'] = G.node[nid]['Day'] + 1 
+                    G.nodes[nid]['Status'] = "Infected Symptomatic"
+                G.nodes[nid]['Day'] = G.nodes[nid]['Day'] + 1 
         
     # event handling, gets all event from the event queue
         for event in pg.event.get():
