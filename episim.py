@@ -2,16 +2,16 @@
 #!/usr/bin/env python
 from decorator import decorator
 
-import pygame as pg
-import random
-import pygame.gfxdraw as gfx
-import numpy as np
-import seaborn as sns
-import time
-import pandas as pd
-from numpy.random import default_rng
-import matplotlib.pyplot as plt
 import pickle
+import pygame.gfxdraw as gfx
+import pygame as pg
+import seaborn as sns
+import random
+import matplotlib.pyplot as plt
+import time
+from numpy.random import default_rng
+import numpy as np
+import pandas as pd
 
 
 @decorator
@@ -72,7 +72,7 @@ def remap(narray,resolution):
 
 
 @on_start
-def simLoop_node_34(*args, **kwargs):
+def simLoop_node_35(*args, **kwargs):
 ############################## EDIT THESE PARAMETERS ########################
     inflength = 20
     mortality = 0.16
@@ -89,7 +89,7 @@ def simLoop_node_34(*args, **kwargs):
     
     pos = kwargs['Settings']['NetworkX']['Pos']
     rng = default_rng()
-    initialinf = rng.choice(1*2, size=1, replace=False)
+    initialinf = rng.choice(2*2, size=2, replace=False)
     G = kwargs['Data']
     screensize = (800,800)
     G.graph['colors'] = {"Naive":(99, 7, 238),"Infected Symptomatic":(145, 238, 7),"Infected Asymptomatic":(159, 190, 126),"Immune":(255, 235, 59),"Dead":(239, 99, 7)}
@@ -119,8 +119,8 @@ def simLoop_node_34(*args, **kwargs):
     
     green = (255, 255, 255) 
     deaths = 0
-    infected = 1
-    asymptomatic=1
+    infected = 2
+    asymptomatic=2
     symptomatic=0 
     willdie=0
     infday = 0 
@@ -137,7 +137,7 @@ def simLoop_node_34(*args, **kwargs):
     while running:
         #infected = 0
 ############################### STOP CRITERIA ########################################################
-        if infday >= 30:
+        if infday >= 365:
             running = False
 #        totaldetected = infected - (asymptomatic+immune+deaths)
 #        if detected >= 2:
@@ -247,7 +247,7 @@ def simLoop_node_34(*args, **kwargs):
 
 
     plt.show()
-    df.to_excel('summarydataLosAngelesUndetectedCase.xlsx')
+    df.to_excel('summarydataLosAngelesFullRun.xlsx')
     kwargs['Data'] = df
     return kwargs
  
@@ -259,7 +259,7 @@ class StremeNode:
         pass
 
     def run(self,*args,**kwargs):
-        self.kwargs=simLoop_node_34(**loadPickle_node_27(**kwargs))
+        self.kwargs=simLoop_node_35(**loadPickle_node_27(**kwargs))
         return (self.kwargs)
 
 class liveprocess:
@@ -267,7 +267,7 @@ class liveprocess:
         pass
         
     def run(self,expname="Local"):
-        self.response=simLoop_node_34(**loadPickle_node_27(**start()))
+        self.response=simLoop_node_35(**loadPickle_node_27(**start()))
         return(self.response)
 
 if __name__ == '__main__':
