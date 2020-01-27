@@ -2,15 +2,15 @@
 #!/usr/bin/env python
 from decorator import decorator
 
-import time
-import pygame.gfxdraw as gfx
-import matplotlib.pyplot as plt
 import pandas as pd
 import random
-import pygame as pg
-import seaborn as sns
-import pickle
 import numpy as np
+import pickle
+import time
+import seaborn as sns
+import pygame.gfxdraw as gfx
+import matplotlib.pyplot as plt
+import pygame as pg
 
 
 @decorator
@@ -71,7 +71,7 @@ def remap(narray,resolution):
 
 
 @on_start
-def simLoop_node_34(*args, **kwargs):
+def simLoop_node_28(*args, **kwargs):
 ############################## EDIT THESE PARAMETERS ########################
     inflength = 20
     mortality = 0.16
@@ -88,8 +88,8 @@ def simLoop_node_34(*args, **kwargs):
     
     pos = kwargs['Settings']['NetworkX']['Pos']
     #rng = default_rng()
-    #initialinf = rng.choice(1*2, size=1, replace=False)
-    initialinf = random.sample(range(1*2),1)
+    #initialinf = rng.choice(21*2, size=21, replace=False)
+    initialinf = random.sample(range(21*2),21)
 
     G = kwargs['Data']
     screensize = (800,800)
@@ -109,7 +109,7 @@ def simLoop_node_34(*args, **kwargs):
     # load and set the logo
     #logo = pg.image.load("logo.png")
     #pg.display.set_icon(logo)
-    pg.display.set_caption("Novel coronavirus (2019-nCoV) Wuhan Virus Los Angeles")
+    pg.display.set_caption("Novel coronavirus (2019-nCoV) Wuhan Virus China")
     legend = pg.image.load('legend.png')
      
     # create a surface on screen that has the size of 240 x 180
@@ -120,8 +120,8 @@ def simLoop_node_34(*args, **kwargs):
     
     green = (255, 255, 255) 
     deaths = 0
-    infected = 1
-    asymptomatic=1
+    infected = 21
+    asymptomatic=21
     symptomatic=0 
     willdie=0
     infday = 0 
@@ -138,13 +138,13 @@ def simLoop_node_34(*args, **kwargs):
     while running:
         #infected = 0
 ############################### STOP CRITERIA ########################################################
-        if infday >= 30:
-            running = False
+#        if infday >= 6:
+#            running = False
 #        totaldetected = infected - (asymptomatic+immune+deaths)
 #        if detected >= 2:
 #            running = False
-#        if deaths >=56:
-#            running = False
+        if deaths >=56:
+            running = False
             
 #######################################################################################################
 
@@ -248,7 +248,7 @@ def simLoop_node_34(*args, **kwargs):
 
 
     plt.show()
-    df.to_excel('summarydataLosAngelesUndetectedCase.xlsx')
+    df.to_excel('summarydataChina.xlsx')
     kwargs['Data'] = df
     return kwargs
  
@@ -260,7 +260,7 @@ class StremeNode:
         pass
 
     def run(self,*args,**kwargs):
-        self.kwargs=simLoop_node_34(**loadPickle_node_27(**kwargs))
+        self.kwargs=simLoop_node_28(**loadPickle_node_27(**kwargs))
         return (self.kwargs)
 
 class liveprocess:
@@ -268,7 +268,7 @@ class liveprocess:
         pass
         
     def run(self,expname="Local"):
-        self.response=simLoop_node_34(**loadPickle_node_27(**start()))
+        self.response=simLoop_node_28(**loadPickle_node_27(**start()))
         return(self.response)
 
 if __name__ == '__main__':
