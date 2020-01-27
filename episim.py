@@ -2,14 +2,15 @@
 #!/usr/bin/env python
 from decorator import decorator
 
-import random
-import numpy as np
-import matplotlib.pyplot as plt
-import time
 import pygame as pg
-import pandas as pd
-import seaborn as sns
+import random
 import pygame.gfxdraw as gfx
+import numpy as np
+import seaborn as sns
+import time
+import pandas as pd
+from numpy.random import default_rng
+import matplotlib.pyplot as plt
 import pickle
 
 
@@ -58,8 +59,8 @@ def start():
 
  
 @on_start
-def loadPickle_node_26(*args,**kwargs):
-    kwargs = pickle.load(open("nodegraph6000.pkl","rb"))
+def loadPickle_node_27(*args,**kwargs):
+    kwargs = pickle.load(open("nodegraph40000.pkl","rb"))
     kwargs['Threads'] = []
 
     return kwargs
@@ -71,12 +72,12 @@ def remap(narray,resolution):
 
 
 @on_start
-def simLoop_node_25(*args, **kwargs):
+def simLoop_node_34(*args, **kwargs):
 ############################## EDIT THESE PARAMETERS ########################
     inflength = 20
-    mortality = 0.13
+    mortality = 0.16
     rnaught = 0
-    infprob = 0.045
+    infprob = 0.08
     infincubation=5
     infdetected = 10
 #############################################################################
@@ -87,6 +88,8 @@ def simLoop_node_25(*args, **kwargs):
         rnaught = infprob*kwargs['Settings']['NetworkX']['k']*inflength
     
     pos = kwargs['Settings']['NetworkX']['Pos']
+    rng = default_rng()
+    initialinf = rng.choice(1*2, size=1, replace=False)
     G = kwargs['Data']
     screensize = (800,800)
     G.graph['colors'] = {"Naive":(99, 7, 238),"Infected Symptomatic":(145, 238, 7),"Infected Asymptomatic":(159, 190, 126),"Immune":(255, 235, 59),"Dead":(239, 99, 7)}
@@ -98,13 +101,14 @@ def simLoop_node_25(*args, **kwargs):
     # Remap -1 1 square to  pygame resolution
     for nid in pos:
         pos[nid] = remap(pos[nid],screensize) 
-    G.nodes[0]['Status'] = 'Infected Symptomatic'
+    for nid in initialinf:
+        G.nodes[nid]['Status'] = 'Infected Asymptomatic'
     # initialize the pygame module
     pg.init()
     # load and set the logo
     #logo = pg.image.load("logo.png")
     #pg.display.set_icon(logo)
-    pg.display.set_caption("Novel coronavirus (2019-nCoV) Wuhan Virus")
+    pg.display.set_caption("Novel coronavirus (2019-nCoV) Wuhan Virus Los Angeles")
     legend = pg.image.load('legend.png')
      
     # create a surface on screen that has the size of 240 x 180
@@ -122,7 +126,7 @@ def simLoop_node_25(*args, **kwargs):
     infday = 0 
     detected = 0
     immune = 0 
-    datacontainer={"Day":[],"Deaths":[],"Cumulative Infections":[],"Detected Infections":[],"Current Undetected Infections":[]}
+    datacontainer={"Day":[],"Deaths":[],"Cumulative Infections":[],"Detected Infections":[],"Current Asymptomatic Infections":[],"Current Infectious Carriers":[]}
     font = pg.font.Font(pg.font.match_font('lato'), 20)
     text = font.render('R0: {0}'.format(rnaught), True, green)
     textinfected = font.render('Infected: {0}'.format(infected), True, green)
@@ -132,11 +136,19 @@ def simLoop_node_25(*args, **kwargs):
     # main loop
     while running:
         #infected = 0
-        if deaths >= 60:
+############################### STOP CRITERIA ########################################################
+        if infday >= 30:
             running = False
+#        totaldetected = infected - (asymptomatic+immune+deaths)
+#        if detected >= 2:
+#            running = False
+#        if deaths >=56:
+#            running = False
+            
+#######################################################################################################
 
         screen.blit(background, (0, 0))
-        pg.draw.rect(background,(74,20,140),(0,0,screensize[0],100),0)
+        pg.draw.rect(background,(74,20,140),(0,0,screensize[0],120),0)
 
         textdeath = font.render('Deaths: {}'.format(deaths), True, green)
         screen.blit(textdeath, (10,10))
@@ -147,12 +159,15 @@ def simLoop_node_25(*args, **kwargs):
         screen.blit(textinfected, (10,55))
         textinfected = font.render('Naive: {}'.format(kwargs['Settings']['NetworkX']['nodes']-infected), True, green)
         screen.blit(textinfected, (10,40))
-        totaldetected = infected - (asymptomatic+immune+deaths)
-        textsymptomatic = font.render('Cumulative Detected Infections: {}'.format(totaldetected), True, green)
+        #totaldetected = infected - (asymptomatic+immune+deaths)
+        textsymptomatic = font.render('Cumulative Detected Infections: {}'.format(detected), True, green)
         screen.blit(textsymptomatic, (10,70))
         
-        textasymptomatic = font.render('Current Undetected Infections: {}'.format(asymptomatic), True, green)
+        textasymptomatic = font.render('Current Asymptomatic Infections: {}'.format(asymptomatic), True, green)
         screen.blit(textasymptomatic, (10,85))
+        carriers = infected-asymptomatic-detected
+        textcarriers = font.render('Current Infectious Carriers: {}'.format(carriers), True, green)
+        screen.blit(textcarriers, (10,100))
         
         textdays = font.render('Epidemic Day: {}'.format(infday), True, green)
         screen.blit(textdays, ((screensize[0]/2)-40,10))
@@ -164,8 +179,9 @@ def simLoop_node_25(*args, **kwargs):
         datacontainer['Day'].append(infday)
         datacontainer['Deaths'].append(deaths)
         datacontainer['Cumulative Infections'].append(infected)
-        datacontainer['Detected Infections'].append(totaldetected)
-        datacontainer['Current Undetected Infections'].append(asymptomatic)
+        datacontainer['Detected Infections'].append(detected)
+        datacontainer['Current Asymptomatic Infections'].append(asymptomatic)
+        datacontainer['Current Infectious Carriers'].append(carriers)
         
         for nid in pos:
             for e in G.edges(nid):
@@ -224,14 +240,15 @@ def simLoop_node_25(*args, **kwargs):
     time.sleep(10)
     df=pd.DataFrame(datacontainer)
     print(df)
-    df = df[['Deaths','Detected Infections','Cumulative Infections']].rolling(1).sum()
+    df = df[['Deaths','Detected Infections','Cumulative Infections','Current Asymptomatic Infections','Current Infectious Carriers']].rolling(1).sum()
     #sns.barplot(x = 'Day', y = 'Cumulative Infections', data = df)
     #sns.barplot(x = 'Day', y = 'Detected Infections', palette = 'magma', data = df)
     sns.lineplot(data=df, linewidth=2)
 
 
     plt.show()
-    
+    df.to_excel('summarydataLosAngelesUndetectedCase.xlsx')
+    kwargs['Data'] = df
     return kwargs
  
  
@@ -242,7 +259,7 @@ class StremeNode:
         pass
 
     def run(self,*args,**kwargs):
-        self.kwargs=simLoop_node_25(**loadPickle_node_26(**kwargs))
+        self.kwargs=simLoop_node_34(**loadPickle_node_27(**kwargs))
         return (self.kwargs)
 
 class liveprocess:
@@ -250,7 +267,7 @@ class liveprocess:
         pass
         
     def run(self,expname="Local"):
-        self.response=simLoop_node_25(**loadPickle_node_26(**start()))
+        self.response=simLoop_node_34(**loadPickle_node_27(**start()))
         return(self.response)
 
 if __name__ == '__main__':
