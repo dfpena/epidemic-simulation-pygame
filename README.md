@@ -2,6 +2,10 @@
 
 # Pygame Epidemic Simulator <br>
 
+ALTHOUGH I TAKE GREAT PAIN TO TRY TO REPRESENT WHAT IS BEING REPORTED TAKE THE OUTPUT OF THIS SIMULATOR WITH PLENTY OF SALT. 
+
+
+
 Simulation of infection progression given a reasonably natural network of connected individuals.  [StremeCoder]([http://do.pluricorp.com/page/stremecoder](http://do.pluricorp.com/page/stremecoder) is used to maintain this code and generate different infection parameters, but is not required and the python source can be modified directly in the simloop function to simulate different diseases.
 
 This simulation uses a social network generated in networkx
@@ -52,7 +56,7 @@ conda install numpy
 
 ### NetworkX<br>
 
-Generates the social network of nodes to run in the simulation
+Generates the social network of nodes to run in the simulation You need the latest version or you will get an error
 
 ```
 pip install networkx
@@ -60,7 +64,22 @@ or
 pip3 install networkx
 ```
 
-## Usage
+### Seaborn <br>
+
+```
+pip install seaborn
+```
+
+### Pandas
+
+```
+pip install pandas
+```
+
+
+
+
+
 
 In a terminal run 
 
