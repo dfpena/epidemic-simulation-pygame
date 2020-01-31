@@ -2,16 +2,15 @@
 #!/usr/bin/env python
 from decorator import decorator
 
-import seaborn as sns
-import datetime
-import pygame as pg
-import random
 import time
+import random
 import matplotlib.pyplot as plt
-import pickle
 import numpy as np
-import pandas as pd
+import pygame as pg
+import seaborn as sns
 import pygame.gfxdraw as gfx
+import pandas as pd
+import pickle
 
 
 @decorator
@@ -72,12 +71,12 @@ def remap(narray,resolution):
 
 
 @on_start
-def simLoop_node_36(*args, **kwargs):
+def simLoop_node_35(*args, **kwargs):
 ############################## EDIT THESE PARAMETERS ########################
     inflength = 20
-    mortality = 0.085
+    mortality = 0.0815
     rnaught = 0
-    infprob = 0.046
+    infprob = 0.049
     infincubation=5
     infdetected = 10
 #############################################################################
@@ -88,10 +87,7 @@ def simLoop_node_36(*args, **kwargs):
         rnaught = infprob*kwargs['Settings']['NetworkX']['k']*inflength
     
     pos = kwargs['Settings']['NetworkX']['Pos']
-    #rng = default_rng()
-    #initialinf = rng.choice(21*2, size=21, replace=False)
-    initialinf = random.sample(range(21*2),21)
-
+    initialinf = random.sample(range(2*2),2)
     G = kwargs['Data']
     screensize = (800,800)
     G.graph['colors'] = {"Naive":(99, 7, 238),"Infected Symptomatic":(145, 238, 7),"Infected Asymptomatic":(159, 190, 126),"Immune":(255, 235, 59),"Dead":(239, 99, 7)}
@@ -110,7 +106,7 @@ def simLoop_node_36(*args, **kwargs):
     # load and set the logo
     #logo = pg.image.load("logo.png")
     #pg.display.set_icon(logo)
-    pg.display.set_caption("Novel coronavirus (2019-nCoV) Wuhan Virus China")
+    pg.display.set_caption("Novel coronavirus (2019-nCoV) Wuhan Virus Los Angeles")
     legend = pg.image.load('legend.png')
      
     # create a surface on screen that has the size of 240 x 180
@@ -121,8 +117,8 @@ def simLoop_node_36(*args, **kwargs):
     
     green = (255, 255, 255) 
     deaths = 0
-    infected = 21
-    asymptomatic=21
+    infected = 2
+    asymptomatic=2
     symptomatic=0 
     willdie=0
     infday = 0 
@@ -135,24 +131,16 @@ def simLoop_node_36(*args, **kwargs):
     # define a variable to control the main loop
     running = True
      
-     
-     
-     
-     
-    d0 = datetime.date(2019, 12, 3)
-    d1 = datetime.datetime.now().date()
-    delta = d1 - d0
-    delta = delta.days
     # main loop
     while running:
         #infected = 0
 ############################### STOP CRITERIA ########################################################
-        if infday >= delta:
+        if infday >= 200:
             running = False
 #        totaldetected = infected - (asymptomatic+immune+deaths)
 #        if detected >= 2:
 #            running = False
-#        if deaths >=106:
+#        if deaths >=56:
 #            running = False
             
 #######################################################################################################
@@ -181,7 +169,7 @@ def simLoop_node_36(*args, **kwargs):
         
         textdays = font.render('Epidemic Day: {}'.format(infday), True, green)
         screen.blit(textdays, ((screensize[0]/2)-40,10))
-        textrnaught = font.render('R0: {}'.format(round(rnaught,2)), True, green)
+        textrnaught = font.render('R0: {}'.format(rnaught), True, green)
         screen.blit(textrnaught, ((screensize[0]/2)-40,25))
         
         textmortality = font.render('Mortality Rate: {} %'.format(mortality*100), True, green)
@@ -257,7 +245,7 @@ def simLoop_node_36(*args, **kwargs):
 
 
     plt.show()
-    df.to_excel('summarydataChina.xlsx')
+    df.to_excel('summarydataLosAngelesFullRun.xlsx')
     kwargs['Data'] = df
     return kwargs
  
@@ -269,7 +257,7 @@ class StremeNode:
         pass
 
     def run(self,*args,**kwargs):
-        self.kwargs=simLoop_node_36(**loadPickle_node_27(**kwargs))
+        self.kwargs=simLoop_node_35(**loadPickle_node_27(**kwargs))
         return (self.kwargs)
 
 class liveprocess:
@@ -277,7 +265,7 @@ class liveprocess:
         pass
         
     def run(self,expname="Local"):
-        self.response=simLoop_node_36(**loadPickle_node_27(**start()))
+        self.response=simLoop_node_35(**loadPickle_node_27(**start()))
         return(self.response)
 
 if __name__ == '__main__':
